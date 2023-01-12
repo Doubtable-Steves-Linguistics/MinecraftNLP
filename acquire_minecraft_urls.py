@@ -18,7 +18,7 @@ def get_minecraft_repositories():
     urls = []
     
     # key loop, begins with hitting github server and pulling the information for a specifiied page
-    for i in range(1, 2):
+    for i in range(1, 501):
         '''
         in the search portion of github, specifies the page number 'i', searching for 
         minecraft associated repositories
