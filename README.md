@@ -44,6 +44,7 @@ of Repo programming languages.
 ## Next Steps
 
 ## Steps to Reproduce
+* Our data comes from the topic category "Minecraft" repositories on GitHub as of January 25, 2023.
 1) Clone this repo into your computer.
 2) Modules and data files are contained in the project folder.
 3) Place env.py file into the cloned repo.
