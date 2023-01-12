@@ -108,18 +108,35 @@ def remove_stopwords(string, extra_words=[], exclude_words=[]):
 
 def prep_readme_data(df, column, extra_words=[], exclude_words=[]):
     '''
-    This function takes in a df and the string name for a text column with 
-    the option to pass lists for extra_words and exclude_words and
-    returns a df with the repo name, original readme text, and cleaned-tokenized- 
-    lemmatized readme text with stopwords removed.
+    This function take in a df and the string name for a text column with 
+    option to pass lists for extra_words and exclude_words and
+    returns a df with the repo name, original text,
+    lemmatized text, cleaned, tokenized, & lemmatized text with stopwords removed.
     '''
     df = df.dropna()
-    df['clean'] = df[column].apply(basic_clean)                            .apply(tokenize)                            .apply(remove_stopwords,
+    df['clean'] = df[column].apply(basic_clean)\
+                            .apply(tokenize)\
+                            .apply(remove_stopwords,
                                   extra_words=extra_words,
                                   exclude_words=exclude_words)
     
     
     df['lemmatized'] = df['clean'].apply(lemmatize)
     
+    df = map_other_languages(df)
+    
     return df
 
+
+#
+def map_other_languages(df):
+    '''
+    This function takes in a df with 'languages' column
+    containing the coding language of the repo. Any language
+    that is not Python, Java, or JavaScript will be marked
+    as 'Other'
+    '''
+    top_languages = ['Python', 'Java', 'JavaScript']
+    df.loc[~df['language'].isin(top_languages), 'language'] = 'Other'
+    
+    return df
