@@ -51,7 +51,7 @@ def get_minecraft_repositories():
     df['repo_link'] = urls
     
     # saves dataframe to disk
-    df.to_csv('test_url_csv.csv', index=False)
+    df.to_csv('large_url_csv.csv', index=False)
     
     
     
