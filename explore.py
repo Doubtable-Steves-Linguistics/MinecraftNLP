@@ -76,3 +76,76 @@ def get_wordcount_bar(train):
     plt.xlabel("Average Word Count")
     plt.ylabel('Language')
     plt.show()
+
+def get_top10_python(train):
+    '''
+    This function takes in a train dataset, creates a df for
+    the Python coding language, then plots the 10 most frequently
+    used words in the column labeled 'language'
+    '''
+    python_df = train[train['language']=='Python']
+    python_txt = ' '.join(python_df['lemmatized'])
+    python_txt = pd.Series(python_txt.split()).value_counts().head(10).sort_values(ascending=True)
+    
+    sns.set_style("darkgrid")
+    python_txt.plot.barh(color='#4B8BBE', width=.9, figsize=(10, 6))
+
+    plt.title('10 Most frequently occuring Python strings')
+    plt.ylabel('Strings')
+    plt.xlabel('# Occurances')
+
+    # make the labels pretty
+    ticks, _ = plt.yticks()
+    labels = python_txt.reset_index()['index']
+    _ = plt.yticks(ticks, labels)
+    
+    plt.show()
+
+
+def get_top10_java(train):
+    '''
+    This function takes in a train dataset, creates a df for
+    the Java coding language, then plots the 10 most frequently
+    used words in the column labeled 'language'
+    '''
+    java_df = train[train.language == 'Java']
+    java_txt = ' '.join(java_df['lemmatized'])
+    java_txt = pd.Series(java_txt.split()).value_counts().head(10).sort_values(ascending=True)
+    
+    sns.set_style("darkgrid")
+    java_txt.plot.barh(color='#f89820', width=.9, figsize=(10, 6))
+
+    plt.title('10 Most frequently occuring Java strings')
+    plt.ylabel('Strings')
+    plt.xlabel('# Occurances')
+
+    # make the labels pretty
+    ticks, _ = plt.yticks()
+    labels = java_txt.reset_index()['index']
+    _ = plt.yticks(ticks, labels)
+    
+    plt.show()
+
+
+def get_top10_js(train):
+    '''
+    This function takes in a train dataset, creates a df for
+    the JavaScript coding language, then plots the 10 most frequently
+    used words in the column labeled 'language'
+    '''
+    js_df = train[train.language == 'JavaScript']
+    js_txt = ' '.join(js_df['lemmatized'])
+    js_txt = pd.Series(js_txt.split()).value_counts().head(10).sort_values(ascending=True)
+    
+    sns.set_style("darkgrid")
+    js_txt.plot.barh(color='#F0DB4F', width=.9, figsize=(10, 6))
+
+    plt.title('10 Most frequently occuring JavaScript strings')
+    plt.ylabel('Strings')
+    plt.xlabel('# Occurances')
+
+    # make the labels pretty
+    ticks, _ = plt.yticks()
+    labels = js_txt.reset_index()['index']
+    
+    plt.show()
