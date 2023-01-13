@@ -48,6 +48,7 @@ def get_language_freq(train):
     This function takes in the training data set and creates a countplot
     utilizing Seaborn to visualize the range and values of programming
     languages in GitHub Repositories'''
+    sns.set_style("darkgrid")
     fig, axes = plt.subplots(figsize=(9, 6))
     cpt = sns.countplot(x='language', data=train, palette='GnBu')
     plt.title('Java is the Most Common Language in our Dataset')
