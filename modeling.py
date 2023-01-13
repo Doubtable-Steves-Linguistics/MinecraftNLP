@@ -11,7 +11,6 @@ from sklearn.ensemble import GradientBoostingClassifier  # Gradient Boosting Cla
 from sklearn.ensemble import HistGradientBoostingClassifier # Sklearn version of LGBM Classifier
 from sklearn.naive_bayes import MultinomialNB  # Naive Bayes Classifier
 
-
 # Sklearn testing, evaluating, and managing model
 from sklearn.datasets import make_multilabel_classification
 from sklearn.metrics import classification_report
@@ -22,12 +21,10 @@ from sklearn.feature_selection import RFE, f_regression
 from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import cross_val_score
 
-
 # additional, advanced classifiers
 from xgboost import XGBClassifier as xgb  # XG Boost Classifier
 from lightgbm import LGBMClassifier # Light Gradient Boost Classifier
 from catboost import CatBoostClassifier # Cat boost classifier
-
 
 # import modules from standard library
 from time import time
@@ -35,12 +32,15 @@ from pprint import pprint # pretty print
 from importlib import reload
 import os
 
-
 # NLP related modules / libraries
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 import nltk #Natural Language Tool Kit
 import re   #Regular Expressions
+
+# turning off red warnings
+import warnings
+warnings.filterwarnings("ignore")
 
 np.random.seed(7)
 
