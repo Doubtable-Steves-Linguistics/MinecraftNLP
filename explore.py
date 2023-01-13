@@ -85,10 +85,10 @@ def get_top10_python(train):
     '''
     python_df = train[train['language']=='Python']
     python_txt = ' '.join(python_df['lemmatized'])
-    python_txt = pd.Series(python_txt.split()).value_counts().head(10)
+    python_txt = pd.Series(python_txt.split()).value_counts().head(10).sort_values(ascending=True)
     
     sns.set_style("darkgrid")
-    python_txt.sort_values(ascending=False).plot.barh(color='#4B8BBE', width=.9, figsize=(10, 6))
+    python_txt.plot.barh(color='#4B8BBE', width=.9, figsize=(10, 6))
 
     plt.title('10 Most frequently occuring Python strings')
     plt.ylabel('Strings')
@@ -110,10 +110,10 @@ def get_top10_java(train):
     '''
     java_df = train[train.language == 'Java']
     java_txt = ' '.join(java_df['lemmatized'])
-    java_txt = pd.Series(java_txt.split()).value_counts().head(10)
+    java_txt = pd.Series(java_txt.split()).value_counts().head(10).sort_values(ascending=True)
     
     sns.set_style("darkgrid")
-    java_txt.sort_values(ascending=False).plot.barh(color='#f89820', width=.9, figsize=(10, 6))
+    java_txt.plot.barh(color='#f89820', width=.9, figsize=(10, 6))
 
     plt.title('10 Most frequently occuring Java strings')
     plt.ylabel('Strings')
@@ -135,10 +135,10 @@ def get_top10_js(train):
     '''
     js_df = train[train.language == 'JavaScript']
     js_txt = ' '.join(js_df['lemmatized'])
-    js_txt = pd.Series(js_txt.split()).value_counts().head(10)
+    js_txt = pd.Series(js_txt.split()).value_counts().head(10).sort_values(ascending=True)
     
     sns.set_style("darkgrid")
-    js_txt.sort_values(ascending=False).plot.barh(color='#F0DB4F', width=.9, figsize=(10, 6))
+    js_txt.plot.barh(color='#F0DB4F', width=.9, figsize=(10, 6))
 
     plt.title('10 Most frequently occuring JavaScript strings')
     plt.ylabel('Strings')
