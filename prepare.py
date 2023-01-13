@@ -104,9 +104,14 @@ def remove_stopwords(string, extra_words=[], exclude_words=[]):
 
 
 # In[7]:
+extra_stops = ['server', 'run', '&#9;', "' ", " '", "'",'Minecraft','minecraft','minecraft ',' minecraft', 'abstract','and','arguments','assert','break','byte','case','char','class',
+               'const','continue','default','double','else','enum','extends','false','final','finally','float','for',
+               'goto','if','implements','import','in','instanceof','int','interface','long','native','new','null',
+               'package','pass','private','protected','public','raise','return','short','static','super','switch',
+               'synchronized','this','throw','throws','transient','true','try','void','volatile','while','with',
+               'yield', 'http', 'com', 'github', 'www', 'version', 'file']
 
-
-def prep_readme_data(df, column, extra_words=[], exclude_words=[]):
+def prep_readme_data(df, column, extra_words=extra_stops, exclude_words=[]):
     '''
     This function take in a df and the string name for a text column with 
     option to pass lists for extra_words and exclude_words and
