@@ -58,3 +58,21 @@ def get_language_freq(train):
         tick.label1.set_fontsize(10)
     plt.show()
     
+def get_wordcount_bar(train):
+    '''
+    This function takes in the training dataset and creates a bar plot of the
+    average wordcount of repository based on their language type
+    '''
+    #Make a column on the df for word count
+    train['word_count'] = train.lemmatized.str.split().apply(len)
+    #Use groupby to get an average length per language
+    language_wordcount = train.groupby('language').word_count.mean().sort_values(ascending=False)
+    #Set style, make a chart
+    sns.set_style("darkgrid")
+    fig, axes = plt.subplots(figsize=(9, 6))
+    ax = sns.barplot(x=language_wordcount.values, 
+                 y=language_wordcount.index, palette='Set3')
+    plt.title('Average Wordcount of Languages in Readme Files')
+    plt.xlabel("Average Word Count")
+    plt.ylabel('Language')
+    plt.show()
