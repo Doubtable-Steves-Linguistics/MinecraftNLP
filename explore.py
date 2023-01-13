@@ -10,7 +10,6 @@ import nltk
 import nltk.sentiment
 from nltk.corpus import stopwords
 from wordcloud import WordCloud
-%matplotlib inline
 import matplotlib.pyplot as plt
 import seaborn as sns
 from requests import get
