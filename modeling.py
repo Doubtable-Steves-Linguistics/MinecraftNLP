@@ -46,6 +46,13 @@ np.random.seed(7)
 
 
 
+
+def get_model_tests():
+    NB_training()
+    gb_training()
+    xgb_training()
+
+
 def get_df():
     
     if os.path.isfile('prepared_data.csv'):
@@ -284,6 +291,7 @@ def NB_training():
     
     NB_y_preds_train = nb_model(x_train, y_train)
     report = classification_report(y_train, NB_y_preds_train)
+    print('Naive Bayes train')
     print(report)
 
 ######  Naive Bayes Model Test  ######
@@ -291,8 +299,9 @@ def NB_test():
     
     x_train, y_train, x_test, y_test = get_split_data()
     
-    NB_y_preds_train = nb_model(x_train, y_train, x_test, y_test, test = True)
-    report = classification_report(y_train, NB_y_preds_train)
+    NB_y_preds_test = nb_model(x_train, y_train, x_test, y_test, test = True)
+    report = classification_report(y_test, NB_y_preds_test)
+    print('Naive Bayes test')
     print(report)
 
 
@@ -303,16 +312,18 @@ def gb_training():
     x_train, y_train, x_test, y_test = get_split_data()
     gb_y_preds_train = gradient_booster_model(x_train, y_train)
     report = classification_report(y_train, gb_y_preds_train)
+    print('SKLearn Gradient Booster train')
     print(report)
 
 
 ######  Gradient Booster Model Test  ######
-def NB_test():
+def gb_test():
     
     x_train, y_train, x_test, y_test = get_split_data()
     
-    gb_y_preds_train = gradient_booster_model(x_train, y_train, x_test, y_test, test = True)
-    report = classification_report(y_train, gb_y_preds_train)
+    gb_y_preds_test = gradient_booster_model(x_train, y_train, x_test, y_test, test = True)
+    report = classification_report(y_test, gb_y_preds_test)
+    print('SKLearn Gradient Booster test')
     print(report)
 
 ######  Extreme Gradient Boosting Model Train ######
@@ -333,11 +344,12 @@ def xgb_training():
 
     xgb_preds_train = xgboost_model(x_train, y_train)
     report = classification_report(y_train, xgb_preds_train)
+    print('Extreme Gradient Boosting training')
     print(report)
 
 
 ######  Extreme Gradient Boosting Model Test  ######
-def xgb_trest():
+def xgb_test():
 
     df = get_df()
     df['language'] = df['language'].map({'Python': 3, 'Other': 2, 'Java' : 0, 'JavaScript' : 1})
@@ -353,4 +365,5 @@ def xgb_trest():
 
     xgb_preds_test = xgboost_model(x_train, y_train, x_test, y_test, test = True)
     report = classification_report(y_test, xgb_preds_test)
+    print('Extreme Gradient Boosting test')
     print(report)
