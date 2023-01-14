@@ -9,9 +9,6 @@ from sklearn.model_selection import train_test_split
 import nltk
 import nltk.sentiment
 from nltk.corpus import stopwords
-from wordcloud import WordCloud
-import matplotlib.pyplot as plt
-import seaborn as sns
 from requests import get
 from bs4 import BeautifulSoup
 import os
@@ -20,6 +17,14 @@ from typing import Dict, List, Optional, Union, cast
 import requests
 import re
 import time
+#Visualization imports
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.colors as mcolors
+from wordcloud import ImageColorGenerator
+from PIL import Image
+
 
 #################################################################################################################################
 #Train-Test Split
@@ -148,4 +153,35 @@ def get_top10_js(train):
     ticks, _ = plt.yticks()
     labels = js_txt.reset_index()['index']
     
+    plt.show()
+    
+#Get Java Wordcloud
+def get_java_wordcloud():
+    '''
+    This function creates a wordcloud utilizing words from the Readme files of Minecraft
+    GitHub Repositories. It utilizes a TXT file containing a string of words taken from
+    Repositories that use the specified 'Java' language, and an image file located
+    in the Repo to create the appropriate shape
+    ***YOU MUST HAVE THE PNG FILE AND TEXT FILE IN YOUR REPO WITH THE CORRECT PATHS***
+    '''
+    #Import TXT file of all JS words
+    java_text = open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/all_java_readme.txt',
+            mode='r', encoding='utf-8').read()
+    #Import .png file of JS logo, create a Numpy array mask from the image
+    mask = np.array(Image.open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/java.png'))
+    # replace 0 with 255 inside the mask to ensure white background
+    mask[mask == 0] = 255
+    # Define Colors
+    colors = ['darkorange', 'steelblue']
+    custom_cmap = mcolors.ListedColormap(colors)
+    #Make the wordcloud, generate the image
+    wc = WordCloud(
+               mask = mask, background_color = "black",
+               max_words = 500, max_font_size = 500,
+               random_state = 42, width = mask.shape[1],
+               colormap= custom_cmap, contour_color='darkorange', contour_width=1,
+               height = mask.shape[0])
+    wc.generate(java_text)
+    plt.imshow(wc, interpolation="None")
+    plt.axis('off')
     plt.show()
