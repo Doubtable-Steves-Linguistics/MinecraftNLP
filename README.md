@@ -24,9 +24,9 @@ of Repo programming languages.
 
 | Feature | Definition | Manipulations applied|Data Type|
 |--------|-----------|-----------|-----------|
-|repo| The repository path (URL path) to the directory | string
-|langugage| The programming language listed as the top used for the repo | string
-|readme_contents| The text contents of the readme file | string
+|repo| The repository path (URL path) to the directory || string
+|langugage| The programming language listed as the top used for the repo || string
+|readme_contents| The text contents of the readme file || string
 |clean| Cleaned text from the readme_contents | String and REGEX methods | string
 |lemmatized| Lemmatized text from readme_contents| Cleaned and Lemmatized | string
 
