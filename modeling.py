@@ -1,7 +1,7 @@
 # import personal modules
 import prepare as prep
-#import acquire as ac
-#import datascience libraries
+
+#import full datascience libraries
 import pandas as pd
 import numpy as np
 
@@ -23,7 +23,7 @@ from sklearn.model_selection import cross_val_score
 
 # additional, advanced classifiers
 from xgboost import XGBClassifier as xgb  # XG Boost Classifier
-from lightgbm import LGBMClassifier # Light Gradient Boost Classifier
+#from lightgbm import LGBMClassifier # Light Gradient Boost Classifier
 from catboost import CatBoostClassifier # Cat boost classifier
 
 # import modules from standard library
@@ -35,8 +35,8 @@ import os
 # NLP related modules / libraries
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
-import nltk #Natural Language Tool Kit
-import re   #Regular Expressions
+#import nltk #Natural Language Tool Kit
+#import re   #Regular Expressions
 
 # turning off red warnings
 import warnings
@@ -46,15 +46,29 @@ np.random.seed(7)
 
 
 
-
+########################################################
+######      Main function for Final Notebook     #######
+######   Call function to test it's performance   ######
+########################################################
 def get_model_tests():
+    '''
+    calls best models to train and print quality one after another
+    '''
     NB_training()
     gb_training()
     xgb_training()
 
 
+##########################################################
+######    Required functions for training models   #######
+##########################################################
 def get_df():
-    
+    '''
+    pulls csv file into dataframe and then modifies it with 
+    preparation functions based on our newest developed methods
+    '''
+
+
     if os.path.isfile('prepared_data.csv'):
         return pd.read_csv('prepared_data.csv', index_col=[0])
     else:
@@ -67,6 +81,11 @@ def get_df():
 
 
 def get_xy():
+    '''
+    takes the dataframe, splits it into x and y pandas dataframe and series.
+    Vectorizes the x dataframe and returns X dataframe and Y series
+    
+    '''
     df = get_df()
         
     x = df['lemmatized']
@@ -74,14 +93,16 @@ def get_xy():
 
     cv = CountVectorizer()
     x_vectorized = cv.fit_transform(x)
-
-    
     
     return x_vectorized, y
 
 
 def get_split_data():
-    
+    '''
+    Takes the whole dataframe, splits it into x and y pandas dataframe and series.
+    Further splits X and Y into train and test sets for modeling.
+    X train is 'fit-transformed' and X test is 'transformed'
+    '''
     df = get_df()
     
     x = df['lemmatized']
@@ -100,17 +121,17 @@ def get_split_data():
 
 
 
-#########################################################
-############         Model Collection      ##############
+########################################################
+############         Model Collection      #############
   ######  Models used with hyperparameter tuning  ######
 ########################################################
 
-#########################################################################
+########################################################################
            ############       Random Forest       ##############     
   ######  Creates N number of trees using random starting values  ######
 ########################################################################
 
-def random_forest_model(x, y):
+def random_forest_model(x_train, y_train, x_test = 0, test = False):
     
     rf_classifier = RandomForestClassifier(
         min_samples_leaf=10,
@@ -122,19 +143,23 @@ def random_forest_model(x, y):
         max_features='auto'
     )
 
-    rf_classifier.fit(x, y)
+    rf_classifier.fit(x_train, y_train)
 
-    y_preds = rf_classifier.predict(x)
-    
-    return y_preds
+    if test == False:
+        y_preds = rf_classifier.predict(x_train)
+        return y_preds
+
+    if test == True:
+        y_preds = rf_classifier.predict(x_test)
+        return y_preds
 
 
-#############################################################################
+############################################################################
     ############       Gradient Boosting Classifier       ##############     
 ######  Creates a random forest where each tree learns from the last  ######
 ############################################################################
 
-def gradient_booster_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
+def gradient_booster_model(x_train, y_train, x_test = 0, test = False):
 
     gradient_booster = GradientBoostingClassifier(
                             learning_rate=0.1,
@@ -158,7 +183,7 @@ def gradient_booster_model(x_train, y_train, x_test = 0, y_test = 0, test = Fals
     #######       Uses XG Boosting Algorthm       #######
 #################################################################
 
-def xgboost_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
+def xgboost_model(x_train, y_train, x_test = 0, test = False):
 
     xgb_params = {'max_depth'       : 3,
                   'eta'             : 0.01,
@@ -169,13 +194,14 @@ def xgboost_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
                   'objective'       : 'binary:logistic'}
 
     
-    xgboost = xgb(params = xgb_params,
-                 num_boost_round = 2000,
-                 verbose_eval = 50,
+    xgboost = xgb(#params = xgb_params,
+                 #num_boost_round = 2000,
+                 #verbose_eval = 50,
                  #early_stopping_rounds = 500,
                  #feval = f1_score_cust,
                  #evals = evals,
                  maximize = True)
+    
     xgboost.fit(x_train, y_train)
     
     
@@ -195,26 +221,29 @@ def xgboost_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
 #######       Uses Light Gradient Boosting Algorthm       #######
 #################################################################
 
-def lgmboost_model(x, y):
+def lgmboost_model(x_train, y_train, x_test = 0, test = False):
     
     lgmboost = LGBMClassifier(
                 learning_rate=0.1,
                 max_depth = 5,
                 n_estimators=200)
 
-    lgmboost.fit(x, y)
+    lgmboost.fit(x_train, y_train)
     
-    y_preds = lgmboost.predict(x)
-    
-    return y_preds
+    if test == False:
+        y_preds = lgmboost.predict(x_train)
+        return y_preds
 
+    if test == True:
+        y_preds = lgmboost.predict(x_test)
+        return y_preds
 
 #################################################################
 #########       HistGradientBoosting Classifier      ###########     
 #######    Inspired by Light Gradient Boosting Algorthm    ######
 #################################################################
 
-def histgradientboost_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
+def histgradientboost_model(x_train, y_train, x_test = 0, test = False):
     
     HGboost = HistGradientBoostingClassifier(
                                             learning_rate=0.1,
@@ -223,13 +252,11 @@ def histgradientboost_model(x_train, y_train, x_test = 0, y_test = 0, test = Fal
     HGboost.fit(x_train, y_train)
     
     if test == False:
-        y_preds = HGBoost.predict(x_train)
-        
+        y_preds = HGboost.predict(x_train)
         return y_preds
         
     if test == True:
-        y_preds = HGBoost.predict(x_test)
-    
+        y_preds = HGboost.predict(x_test)
         return y_preds
 
 
@@ -238,7 +265,7 @@ def histgradientboost_model(x_train, y_train, x_test = 0, y_test = 0, test = Fal
 #######      Cat Boost Gradient Boosting Algorthm       ##
 ##########################################################
 
-def catboost_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
+def catboost_model(x_train, y_train, x_test = 0, test = False):
     
     catboost_params = {'loss_function' : 'Logloss',
                         'eval_metric' : 'AUC',
@@ -261,7 +288,7 @@ def catboost_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
 #######     Uses Naive Bayes as Classification Algorithm     #######
 ####################################################################
 
-def nb_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
+def nb_model(x_train, y_train, x_test = 0, test = False):
     
     naive_bayes = MultinomialNB()
     
@@ -279,7 +306,7 @@ def nb_model(x_train, y_train, x_test = 0, y_test = 0, test = False):
 
 
 
-#########################################################
+########################################################
 ############         Model Testing      ##############
   ######  Call function to test it's performance  ######
 ########################################################
