@@ -194,16 +194,15 @@ def xgboost_model(x_train, y_train, x_test = 0, test = False):
                   'objective'       : 'binary:logistic'}
 
     
-    xgboost = xgb(#params = xgb_params,
+    xgboost = xgb()#params = xgb_params,
                  #num_boost_round = 2000,
                  #verbose_eval = 50,
                  #early_stopping_rounds = 500,
                  #feval = f1_score_cust,
                  #evals = evals,
-                 maximize = True)
+                 #maximize = True
     
     xgboost.fit(x_train, y_train)
-    
     
     if test == False:
         y_preds = xgboost.predict(x_train)
