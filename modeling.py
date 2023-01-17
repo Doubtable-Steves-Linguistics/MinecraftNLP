@@ -237,7 +237,7 @@ def lgmboost_model(x_train, y_train, x_test = 0, test = False):
     if test == True:
         y_preds = lgmboost.predict(x_test)
         return y_preds
-
+'''
 #################################################################
 #########       HistGradientBoosting Classifier      ###########     
 #######    Inspired by Light Gradient Boosting Algorthm    ######
@@ -282,7 +282,7 @@ def catboost_model(x_train, y_train, x_test = 0, test = False):
     if test == True:
         y_preds = catboost.predict(x_test)
         return y_preds
-
+''' 
 ####################################################################
 #########         Multinomial Naive Bayes Classifier     ###########     
 #######     Uses Naive Bayes as Classification Algorithm     #######
@@ -348,15 +348,20 @@ def gb_test():
     
     x_train, y_train, x_test, y_test = get_split_data()
     
-    gb_y_preds_test = gradient_booster_model(x_train, y_train, x_test, y_test, test = True)
+    gb_y_preds_test = gradient_booster_model(x_train, y_train, x_test, test = True)
     report = classification_report(y_test, gb_y_preds_test)
     print('SKLearn Gradient Booster test')
     print(report)
 
+
 ######  Extreme Gradient Boosting Model Train ######
 
 def xgb_training():
-
+    '''
+    Extreme Gradient Booster classifier does not handle the target as 
+    a category so this model must be built with a few different steps
+    than the other algorithms. 
+    '''
     df = get_df()
     df['language'] = df['language'].map({'Python': 3, 'Other': 2, 'Java' : 0, 'JavaScript' : 1})
 
@@ -377,7 +382,11 @@ def xgb_training():
 
 ######  Extreme Gradient Boosting Model Test  ######
 def xgb_test():
-
+    '''
+    Extreme Gradient Booster classifier does not handle the target as 
+    a category so this model must be built with a few different steps
+    than the other algorithms. 
+    '''
     df = get_df()
     df['language'] = df['language'].map({'Python': 3, 'Other': 2, 'Java' : 0, 'JavaScript' : 1})
 

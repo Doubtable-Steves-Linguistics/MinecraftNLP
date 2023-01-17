@@ -167,10 +167,10 @@ def get_java_wordcloud():
     ***YOU MUST HAVE THE PNG FILE AND TEXT FILE IN YOUR REPO WITH YOUR FILE PATHS***
     '''
     #Import TXT file of all JS words
-    java_text = open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/all_java_readme.txt',
+    java_text = open(r'all_java_readme.txt',
             mode='r', encoding='utf-8').read()
     #Import .png file of JS logo, create a Numpy array mask from the image
-    mask = np.array(Image.open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/java.png'))
+    mask = np.array(Image.open(r'java.png'))
     # replace 0 with 255 inside the mask to ensure white background
     mask[mask == 0] = 255
     # Define Colors
@@ -199,10 +199,10 @@ def get_python_wordcloud():
     ***YOU MUST HAVE THE PNG FILE AND TEXT FILE IN YOUR REPO WITH YOUR FILE PATHS***
     '''
     #Import TXT file of all JS words
-    python_text = open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/all_python_readme.txt',
+    python_text = open(r'all_python_readme.txt',
             mode='r', encoding='utf-8').read()
     #Import .png file of JS logo, create a Numpy array mask from the image
-    mask = np.array(Image.open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/green_python.png'))
+    mask = np.array(Image.open(r'green_python.png'))
     # replace 0 with 255 inside the mask to ensure white background
     mask[mask == 0] = 255
     #Create Custom Colors
@@ -231,10 +231,10 @@ def get_js_wordcloud():
     ***YOU MUST HAVE THE PNG FILE AND TEXT FILE IN YOUR REPO WITH YOUR FILE PATHS***
     '''
     #Import TXT file of all JS words
-    js_text = open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/all_javascript_readme.txt',
+    js_text = open(r'all_javascript_readme.txt',
             mode='r', encoding='utf-8').read()
     #Import .png file of JS logo, create a Numpy array mask from the image
-    mask = np.array(Image.open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/js.png'))
+    mask = np.array(Image.open(r'js.png'))
     # replace 0 with 255 inside the mask to ensure white background
     mask[mask == 0] = 255
     # Define Colors
@@ -261,10 +261,10 @@ def get_sword_wordcloud():
     in the Repo to create the appropriate shape
     '''
     #Import TXT file of all JS words
-    other_text = open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/all_other_readme.txt',
+    other_text = open(r'all_other_readme.txt',
             mode='r', encoding='utf-8').read()
     #Import .png file of JS logo, create a Numpy array mask from the image
-    mask = np.array(Image.open(r'/Users/crislucin/codeup-data-science/MinecraftNLP/sword.png'))
+    mask = np.array(Image.open(r'sword.png'))
     # replace 0 with 255 inside the mask to ensure white background
     mask[mask == 0] = 255
     # Define Colors
