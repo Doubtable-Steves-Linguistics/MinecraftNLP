@@ -5,6 +5,7 @@
 ## Deliverables
 * A GitHub Repository ("repo") containing project work
 * A Readme file with project description and instructions on how to duplicate project
+* A link to slides: https://docs.google.com/presentation/d/17Uta5lM2hR_f3pjU151OpFx02unYJYFdMc2CReRiPH0/edit?usp=sharing
 
 ## Project Description
 
@@ -33,7 +34,7 @@ of Repo programming languages.
 ## Exploration
 
 * Java was the most frequent language found in the Repos examined
-* Javascript Repos had the highest average wordcount, Java Repos had the lowest
+* JavaScript Repos had the highest average wordcount, Java Repos had the lowest
 * "Install" was the most common word for Python Repos
 * "Mod" and "Build" were the most frequently found Java strings
 * "Command" was the most frequent word found in JavaScript Repos
@@ -41,7 +42,7 @@ of Repo programming languages.
 ## Modeling
 
 * We elected to utilize accuracy as the evaluation metric
-* We developed three different models using differnt model types: (Naive Bayes, SKLearn Gradient Booster, XG Boost)
+* We developed three different models using different model types: (Naive Bayes, SKLearn Gradient Booster, XG Boost)
 * The model that performs the best was evaluated on test data
 * We utilized the mode of 'language' as the baseline (Java, 45.3)
 * All models were overfit on the training data
@@ -63,7 +64,7 @@ Count Vectorization (CV) in combination with ensemble classification is an effec
 
 ## Next Steps
 
-* Utilize statistical methods to identify additional stopwords
+* Utilize statistical methods to identify additional stop words
 * Develop and test different model types for performance
 * Find alternative methods for pulling repo data from GitHub
 
